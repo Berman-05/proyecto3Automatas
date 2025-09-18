@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Herramienta Regex</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Validador y Probador de Regex</h1>
+
+    <form method="post">
+        <label>Expresión Regular:</label><br>
+        <input type="text" name="regex" value="{{ regex }}"><br><br>
+
+        <label>Texto:</label><br>
+        <textarea name="texto" rows="8" cols="50">{{ texto }}</textarea><br><br>
+
+        <button type="submit">Probar</button>
+    </form>
+
+    {% if resultado %}
+        <h2>Resultado:</h2>
+        <p>{{ resultado | safe }}</p>
+
+        <h2>Coincidencias encontradas:</h2>
+        <ul>
+        {% for c in coincidencias %}
+            <li>{{ c }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
