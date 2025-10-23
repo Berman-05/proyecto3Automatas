@@ -2,32 +2,35 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Herramienta Regex</title>
+    <title>Validador Regex</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <h1>Validador y Probador de Regex</h1>
-
-    <form method="post">
-        <label>Expresión Regular:</label><br>
-        <input type="text" name="regex" value="{{ regex }}"><br><br>
-
-        <label>Texto:</label><br>
-        <textarea name="texto" rows="8" cols="50">{{ texto }}</textarea><br><br>
-
-        <button type="submit">Probar</button>
-    </form>
-
-    {% if resultado %}
-        <h2>Resultado:</h2>
-        <p>{{ resultado | safe }}</p>
-
-        <h2>Coincidencias encontradas:</h2>
-        <ul>
-        {% for c in coincidencias %}
-            <li>{{ c }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="container">
+        <h1>Validador y Buscador con Expresiones Regulares</h1>
+        <form method="POST">
+            <label for="regex">Expresión Regular:</label>
+            <input type="text" id="regex" name="regex" value="{{ regex }}" required>
+            <label for="texto">Texto a evaluar:</label>
+            <textarea id="texto" name="texto" rows="6" required>{{ texto }}</textarea>
+            <button type="submit">Validar y Buscar</button>
+        </form>
+        {% if resultado %}
+        <div class="resultado">
+            <h2>Resultado:</h2>
+            <p>{{ resultado|safe }}</p>
+        </div>
+        {% endif %}
+        {% if coincidencias %}
+        <div class="coincidencias">
+            <h2>Coincidencias encontradas ({{ coincidencias|length }}):</h2>
+            <ul>
+                {% for c in coincidencias %}
+                <li>{{ c }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        {% endif %}
+    </div>
 </body>
 </html>
